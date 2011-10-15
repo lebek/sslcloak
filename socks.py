@@ -161,7 +161,6 @@ class SOCKSv4(protocol.Protocol):
             d = self.connectClass(server, port, SOCKSv4Outgoing, self)
             d.addErrback(lambda result, self = self: self.makeReply(91))
         elif code == 2: # BIND
-            import pdb; pdb.set_trace()
             d = self.listenClass(0, SOCKSv4IncomingFactory, self, server)
             d.addCallback(lambda (h, p),
                           self = self: self.makeReply(90, 0, p, h))
