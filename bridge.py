@@ -13,7 +13,6 @@ class SOCKSv4Factory(protocol.Factory):
 if '__main__' == __name__:
     from sys import argv
 
-    listenPort = int(1080)
-
+    listenPort = int(argv[1])
     reactor.listenTCP(listenPort, SOCKSv4Factory("socks.log"))
     reactor.run()

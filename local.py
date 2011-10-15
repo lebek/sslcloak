@@ -1,13 +1,16 @@
 from twisted.internet import reactor, endpoints, protocol
 import socks
 
+BIND_ADDR = '109.175.151.84'
+BIND_PORT = 9999
+
 class Outgoing(protocol.Protocol):
 
     def __init__(self, incoming):
         self.incoming = incoming
 
     def connectionMade(self):
-        print 'made conn to outgoing server'
+        pass
 
     def dataReceived(self, data):
         print 'FROM OUT: ', data
@@ -16,7 +19,6 @@ class Outgoing(protocol.Protocol):
 class Incoming(protocol.Protocol):
 
     def connectionMade(self):
-        print 'conn made'
         self.address = self.transport.getHost()
 
         # binding to 9999 identifies our traffic to the local firewall
@@ -29,7 +31,7 @@ class Incoming(protocol.Protocol):
         # dst-port - i.e. the SOCKS server port
         point = endpoints.TCP4ClientEndpoint(reactor, self.address.host,
                                              self.address.port,
-                                             bindAddress=('109.175.151.84', 9999))
+                                             bindAddress=(BIND_ADDR, BIND_PORT))
         point.connect(OutgoingFactory(self))
         # need to stop incoming from writing to this until connection made
 
@@ -58,7 +60,4 @@ if __name__ == "__main__":
     listenPort = int(argv[1])
     point = endpoints.TCP4ServerEndpoint(reactor, listenPort)
     d = point.listen(IncomingFactory())
-    def listening(a):
-        print a
-    d.addCallback(listening)
     reactor.run()
