@@ -54,6 +54,7 @@ class Incoming(protocol.Protocol):
         #                                     self.address.port,
         #                                     bindAddress=(BIND_ADDR, BIND_PORT))
         factory = socks.SOCKSv4ClientFactory(reactor)
+        print self.socksHost, self.socksPort
         point = endpoints.SSL4ClientEndpoint(reactor, self.socksHost,
                                              self.socksPort,
                                              self.contextFactory)
@@ -105,5 +106,5 @@ if __name__ == "__main__":
     contextFactory = ClientContextFactory("localkey.pem", "localcert.pem",
                                           "cacert.pem", ["sslcloak-bridge"])
     point = endpoints.TCP4ServerEndpoint(reactor, listenPort)
-    d = point.listen(IncomingFactory(socksHost, socksHost, contextFactory))
+    d = point.listen(IncomingFactory(socksHost, socksPort, contextFactory))
     reactor.run()
