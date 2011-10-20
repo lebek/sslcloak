@@ -273,11 +273,6 @@ class AlreadyBound(SOCKSError):
     pass
 
 
-
-from binascii import hexlify
-prettyHex = lambda x: ' '.join(['0x'+hexlify(i) for i in x])
-
-
 class SOCKSv4Client(protocol.Protocol):
     """
     SOCKSv4(a) client protocol.
@@ -300,12 +295,10 @@ class SOCKSv4Client(protocol.Protocol):
 
 
     def _write(self, data):
-        print '->', prettyHex(data)
         self.transport.write(data)
 
 
     def dataReceived(self, data):
-        print '<-', prettyHex(data)
         self.buf += data
 
         if len(self.buf) >= 8:
