@@ -1,6 +1,8 @@
 from twisted.internet import reactor, endpoints, protocol
 import socks
 
+from sslcontext import ClientContextFactory
+
 import pdb
 
 from binascii import hexlify
