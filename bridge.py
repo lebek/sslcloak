@@ -2,6 +2,7 @@
 from twisted.internet import reactor, endpoints, protocol
 import socks
 
+from sslcontext import ServerContextFactory
 
 class SOCKSv4Factory(protocol.Factory):
     def __init__(self, log):
