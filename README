@@ -1,2 +1,1 @@
-I use this to make SSH/IRC connections from inside my university eduroam network
-which only accepts dst-port 80,443.
+local transparent proxy which communicates with a remote SOCKSv4 proxy via TLS (w/ 2-way auth)
